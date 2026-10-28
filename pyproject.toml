@@ -1,0 +1,61 @@
+[build-system]
+requires = ["hatchling>=1.24"]
+build-backend = "hatchling.build"
+
+[project]
+name = "reflex-privatus"
+dynamic = ["version"]
+description = "Cookieless Privatus Analytics for Reflex apps: the tracking script in the page head and a track() event helper."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Two Phase LLC", email = "james@privatusanalytics.com" }]
+requires-python = ">=3.10"
+keywords = ["reflex", "reflex-component", "analytics", "privacy", "cookieless", "privatus"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+    "Typing :: Typed",
+]
+dependencies = ["reflex>=0.9.12", "privatus-analytics>=1.0.1,<2"]
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+dev = ["reflex-privatus[test]", "ruff>=0.6", "build>=1.2"]
+
+[project.urls]
+Homepage = "https://privatusanalytics.com"
+Documentation = "https://privatusanalytics.com/docs"
+Repository = "https://github.com/Privatus-Analytics/reflex-privatus"
+Changelog = "https://github.com/Privatus-Analytics/reflex-privatus/blob/main/CHANGELOG.md"
+Issues = "https://github.com/Privatus-Analytics/reflex-privatus/issues"
+
+[tool.hatch.version]
+path = "src/reflex_privatus/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/reflex_privatus"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src/reflex_privatus", "tests", "README.md", "CHANGELOG.md", "LICENSE"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra -p no:cacheprovider"
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "B", "UP", "SIM", "RUF", "C4", "PT"]
